@@ -3,9 +3,8 @@ package firstapplication.saarsc.myapplication;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +18,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe);
-        btnBack = (Button) findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(this);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(this);
         etPlayer1 = (EditText)findViewById(R.id.etPlayer1);
@@ -29,11 +26,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view){
         String game = getIntent().getStringExtra("game");
         AlertDialog alertDialog = new AlertDialog.Builder(Register.this).create();
-        if(btnBack.getId() == view.getId()){
-            Intent intent = new Intent(Register.this, MainActivity.class);
-            startActivity(intent);
 
-        }
     if(etPlayer1.getText().toString().isEmpty()){
             alertDialog.setTitle("Empty box!");
             alertDialog.setMessage("First player please enter a name");
@@ -68,6 +61,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             startActivity(intent);
         }
     }
+    }
+    @Override
+    public void onBackPressed(){
+
+            Intent intent = new Intent(Register.this, MainActivity.class);
+            startActivity(intent);
+
+
     }
 
 }

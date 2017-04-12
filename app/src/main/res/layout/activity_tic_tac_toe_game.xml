@@ -26,13 +26,6 @@
             android:textSize="30dp"
             android:textAlignment="center" />
 
-        <Button
-            android:text="חזרה"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:id="@+id/btnBack"
-            android:width="9dp" />
-
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
