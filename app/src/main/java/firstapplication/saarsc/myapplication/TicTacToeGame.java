@@ -9,22 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.util.Random;
 
 public class TicTacToeGame extends AppCompatActivity implements View.OnClickListener{Button btnBack;
-    Button btn00;
-    Button btn01;
-    Button btn02;
-    Button btn10;
-    Button btn11;
-    Button btn12;
-    Button btn20;
-    Button btn21;
-    Button btn22;
+
     TextView tvPlayer1Name;
     TextView tvPlayer2Name;
     static int turn;
     Button[][] board= new Button[3][3];
-
+    public Random rnd  = new Random();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -34,49 +27,20 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
         String player2Name = getIntent().getStringExtra("nameTwo");
         //Sync that shit up
 
-        btn00 = (Button)findViewById(R.id.btn00);
-        btn01 = (Button)findViewById(R.id.btn01);
-        btn02 = (Button)findViewById(R.id.btn02);
-        btn10 = (Button)findViewById(R.id.btn10);
-        btn11 = (Button)findViewById(R.id.btn11);
-        btn12 = (Button)findViewById(R.id.btn12);
-        btn20 = (Button)findViewById(R.id.btn20);
-        btn21 = (Button)findViewById(R.id.btn21);
-        btn22 = (Button)findViewById(R.id.btn22);
+        for(int i=0; i< board.length; i++){
+            for(int j=0; j< board[i].length; j++){
+                String str= "btn+= "  + i + j;
+                int resID = getResources().getIdentifier(str, "id", getPackageName());
+                board[i][j] = (Button)findViewById(resID);
+                board[i][j].setOnClickListener(this);
+            }
+        }
         tvPlayer1Name= (TextView)findViewById(R.id.tvPlayer1Name);
         tvPlayer2Name = (TextView) findViewById(R.id.tvPlayer2Name);
         tvPlayer1Name.setText(player1Name + "( X )");
         tvPlayer2Name.setText(player2Name + "( O )");
-        //Click listner
 
-        btn00 .setOnClickListener(this);
-        btn01.setOnClickListener(this);
-        btn02.setOnClickListener(this);
-        btn10.setOnClickListener(this);
-        btn11.setOnClickListener(this);
-        btn12.setOnClickListener(this);
-        btn20 .setOnClickListener(this);
-        btn21.setOnClickListener(this);
-        btn22.setOnClickListener(this);
-        //Board
-        board[0][0] = btn00;
-        board[0][1] = btn01;
-        board[0][2] = btn02;
 
-        board[1][0] = btn10;
-        board[1][1] = btn11;
-        board[1][2] = btn12;
-
-        board[2][0] = btn20;
-        board[2][1] = btn21;
-        board[2][2] = btn22;
-        turn =1;
-        for(int i =0; i< board.length; i++){
-            for(int j=0; j< board[i].length; j++){
-                board[i][j].setText("~");
-            }
-        }
-        tvPlayer1Name.setTextColor(Color.RED);
     }
     public boolean occupied(Button btn){
         return !btn.getText().equals("X") && !btn.getText().equals("O");
@@ -129,7 +93,6 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
     }
     public void onClick(View view){
         //X turn
-
         if(turn == 1) {
             tvPlayer2Name.setTextColor(Color.BLACK);
             tvPlayer1Name.setTextColor(Color.RED);
@@ -143,7 +106,12 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
 
             }
 
-            //First is the winner
+            //First isurn =rnd.nextInt(2)+1;
+            for(int i =0; i< board.length; i++){
+                for(int j=0; j< board[i].length; j++){
+                    board[i][j].setText("~");
+                }
+            } the winner
             if (check()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("Congrats!");
