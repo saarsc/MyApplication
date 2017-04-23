@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.Random;
 
 public class TicTacToeGame extends AppCompatActivity implements View.OnClickListener{Button btnBack;
@@ -111,7 +112,8 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                 for(int j=0; j< board[i].length; j++){
                     board[i][j].setText("~");
                 }
-            } the winner
+            }
+            //the winner
             if (check()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("Congrats!");
