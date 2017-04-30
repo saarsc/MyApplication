@@ -12,11 +12,12 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class TicTacToeGame extends AppCompatActivity implements View.OnClickListener{Button btnBack;
+public class TicTacToeGame extends AppCompatActivity implements View.OnClickListener{;
 
     TextView tvPlayer1Name;
     TextView tvPlayer2Name;
     static int turn;
+    TicTacToeManger manager;
     Button[][] board= new Button[3][3];
     public Random rnd  = new Random();
     @Override
@@ -24,97 +25,53 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe_game);
+        //Gettin every thing form the last activity
         String player1Name = getIntent().getStringExtra("nameOne");
         String player2Name = getIntent().getStringExtra("nameTwo");
         //Sync that shit up
-
         for(int i=0; i< board.length; i++){
             for(int j=0; j< board[i].length; j++){
-                String str= "btn+= "  + i + j;
+                String str= "btn"  + i + j;
                 int resID = getResources().getIdentifier(str, "id", getPackageName());
                 board[i][j] = (Button)findViewById(resID);
-                board[i][j].setOnClickListener(this);
+                board[i][j].setOnClickListener(TicTacToeGame.this);
+                board[i][j].setText("~");
             }
         }
+        manager  = new TicTacToeManger(this);
+        manager.restart();
         tvPlayer1Name= (TextView)findViewById(R.id.tvPlayer1Name);
         tvPlayer2Name = (TextView) findViewById(R.id.tvPlayer2Name);
         tvPlayer1Name.setText(player1Name + "( X )");
         tvPlayer2Name.setText(player2Name + "( O )");
-
-
-    }
-    public boolean occupied(Button btn){
-        return !btn.getText().equals("X") && !btn.getText().equals("O");
-
-    }
-    public boolean check(){
-          if (turn == 1) {
-                    for(int i=0; i< board.length; i++) {
-                        if(board[i][0].getText().equals("X") && board[i][1].getText().equals("X") && board[i][2].getText().equals("X")){
-                            return true;
-                        }
-                }
-                    for(int i =0; i< board.length; i++){
-                        if(board[0][i].getText().equals("X") && board[1][i].getText().equals("X") && board[2][i].getText().equals("X")){
-                            return true;
-                        }
-                    }
-                 if((board[0][0].getText().equals("X") && board[1][1].getText().equals("X") && board[2][2].getText().equals("X")) ||(board[0][2].getText().equals("X") && board[1][1].getText().equals("X") && board[2][0].getText().equals("X")) ){
-                    return true;
-                 }
-
-            }else{
-              for(int i=0; i< board.length; i++) {
-                  if(board[i][0].getText().equals("O") && board[i][1].getText().equals("O") && board[i][2].getText().equals("O")){
-                      return true;
-                  }
-              }
-              for(int i =0; i< board.length; i++){
-                  if(board[0][i].getText().equals("O") && board[1][i].getText().equals("O") && board[2][i].getText().equals("O")){
-                      return true;
-                  }
-              }
-              if((board[0][0].getText().equals("O") && board[1][1].getText().equals("O") && board[2][2].getText().equals("O")) ||(board[0][2].getText().equals("O") && board[1][1].getText().equals("O") && board[2][0].getText().equals("O")) ){
-                  return true;
-              }
-          }
-
-
-        return false;
-    }
-    public boolean full(){
-        for(int i=0; i< board.length; i++){
-            for(int j=0; j< board[i].length; j++){
-             if(board[i][j].getText() != "X" && board[i][j].getText() != "O"){
-                 return false;
-             }
-            }
+        turn = rnd.nextInt(2)+1;
+        manager.setTurn(turn);
+        if(turn == 1){
+            tvPlayer2Name.setTextColor(Color.RED);
+        }else{
+            tvPlayer1Name.setTextColor(Color.RED);
         }
-        return  true;
     }
+
+
     public void onClick(View view){
         //X turn
-        if(turn == 1) {
-            tvPlayer2Name.setTextColor(Color.BLACK);
-            tvPlayer1Name.setTextColor(Color.RED);
+        if(turn == 2) {
+            tvPlayer1Name.setTextColor(Color.BLACK);
+            tvPlayer2Name.setTextColor(Color.RED);
             //Place X
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
-                    if (view.getId() == board[i][j].getId() && occupied(board[i][j])) {
+                    if (view.getId() == board[i][j].getId() && manager.occupied(i,j)) {
                         board[i][j].setText("X");
+                        manager.place(i,j);
                     }
                 }
 
             }
 
-            //First isurn =rnd.nextInt(2)+1;
-            for(int i =0; i< board.length; i++){
-                for(int j=0; j< board[i].length; j++){
-                    board[i][j].setText("~");
-                }
-            }
             //the winner
-            if (check()) {
+            if (manager.check()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("Congrats!");
                 alertDialog.setMessage(tvPlayer1Name.getText() + " is the winner");
@@ -128,7 +85,7 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                         });
                 alertDialog.show();
             }
-            if(full()){
+            if(manager.full()){
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("IIts a shame");
                 alertDialog.setMessage("There are no winners its a draw");
@@ -142,23 +99,23 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                         });
                 alertDialog.show();
             }
-            turn =2;
+            turn =1;
 
         }
         else{
-            tvPlayer1Name.setTextColor(Color.BLACK);
-            tvPlayer2Name.setTextColor(Color.RED);
+            tvPlayer2Name.setTextColor(Color.BLACK);
+            tvPlayer1Name.setTextColor(Color.RED);
             //Place X
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
-                    if (view.getId() == board[i][j].getId() && occupied(board[i][j])) {
+                    if (view.getId() == board[i][j].getId() && manager.occupied(i,j)) {
                         board[i][j].setText("O");
                     }
                 }
 
             }
             //First is the winner
-            if (check()) {
+            if (manager.check()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("Congrats!");
                 alertDialog.setMessage(tvPlayer2Name.getText() + " is the winner");
@@ -173,7 +130,7 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                 alertDialog.show();
 
             }
-            if(full()){
+            if(manager.full()){
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("IIts a shame");
                 alertDialog.setMessage("There are no winners its a draw");
@@ -187,52 +144,9 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                         });
                 alertDialog.show();
             }
-            turn =1;
+            turn =2;
         }
 
-   /*         if(view.getId() == btn00.getId()){
-
-            }else  if(view.getId() == btn01.getId()){
-
-            }else if(view.getId() == btn02.getId()){
-
-            }else  if(view.getId() == btn10.getId()){
-
-            }else  if(view.getId() == btn11.getId()){
-
-            }else  if(view.getId() == btn12.getId()){
-
-            }else if(view.getId() == btn20.getId()){
-
-            }else  if(view.getId() == btn21.getId()){
-
-            }else if(view.getId() == btn22.getId()){
-
-            }*/
-           // turn =2;
-        /*} else {
-            tvPlayer1Name.setTextColor(Color.BLACK);
-            if(view.getId() == btn00.getId()){
-
-            }else  if(view.getId() == btn01.getId()){
-
-            }else if(view.getId() == btn02.getId()){
-
-            }else  if(view.getId() == btn10.getId()){
-
-            }else  if(view.getId() == btn11.getId()){
-
-            }else  if(view.getId() == btn12.getId()){
-
-            }else if(view.getId() == btn20.getId()){
-
-            }else  if(view.getId() == btn21.getId()){
-
-            }else if(view.getId() == btn22.getId()){
-
-            }
-            turn =1;
-        }*/
 
     }
     @Override
