@@ -52,8 +52,13 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
             tvPlayer1Name.setTextColor(Color.RED);
         }
     }
-
-
+    public void restart(){
+        for(int i=0; i< board.length;i++){
+            for(int j=0; j<board[i].length; j++){
+                board[i][j].setText("~");
+            }
+        }
+    }
     public void onClick(View view){
         //X turn
         if(turn == 2) {
@@ -83,6 +88,13 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                                 startActivity(intent);
                             }
                         });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog,int which){
+                        manager.restart();
+                        restart();
+                        dialog.dismiss();
+                    }
+                });
                 alertDialog.show();
             }
             if(manager.full()){
@@ -97,19 +109,29 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                                 startActivity(intent);
                             }
                         });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog,int which){
+                        manager.restart();
+                        restart();
+                        dialog.dismiss();
+                    }
+                });
                 alertDialog.show();
             }
             turn =1;
 
         }
+        //O turn
         else{
             tvPlayer2Name.setTextColor(Color.BLACK);
             tvPlayer1Name.setTextColor(Color.RED);
-            //Place X
+
+            //Place O
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
                     if (view.getId() == board[i][j].getId() && manager.occupied(i,j)) {
                         board[i][j].setText("O");
+                        manager.place(i,j);
                     }
                 }
 
@@ -127,6 +149,13 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                                 startActivity(intent);
                             }
                         });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog,int which){
+                        manager.restart();
+                        restart();
+                        dialog.dismiss();
+                    }
+                });
                 alertDialog.show();
 
             }
@@ -142,6 +171,13 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                                 startActivity(intent);
                             }
                         });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog,int which){
+                        manager.restart();
+                        restart();
+                        dialog.dismiss();
+                    }
+                });
                 alertDialog.show();
             }
             turn =2;
