@@ -17,6 +17,7 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
     TextView tvPlayer1Name;
     TextView tvPlayer2Name;
     static int turn;
+    Button reset;
     TicTacToeManger manager;
     Button[][] board= new Button[3][3];
     public Random rnd  = new Random();
@@ -38,12 +39,14 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                 board[i][j].setText("~");
             }
         }
+        reset = (Button)findViewById(R.id.restet);
         manager  = new TicTacToeManger(this);
         manager.restart();
         tvPlayer1Name= (TextView)findViewById(R.id.tvPlayer1Name);
         tvPlayer2Name = (TextView) findViewById(R.id.tvPlayer2Name);
         tvPlayer1Name.setText(player1Name + "( X )");
         tvPlayer2Name.setText(player2Name + "( O )");
+        reset.setOnClickListener(this);
         turn = rnd.nextInt(2)+1;
         manager.setTurn(turn);
         if(turn == 1){
@@ -61,7 +64,11 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
     }
     public void onClick(View view){
         //X turn
-        if(turn == 2) {
+        if(view.getId() == reset.getId()){
+            restart();
+            manager.restart();
+        }
+       else if(turn == 2) {
             tvPlayer1Name.setTextColor(Color.BLACK);
             tvPlayer2Name.setTextColor(Color.RED);
             //Place X
@@ -99,7 +106,7 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
             }
             if(manager.full()){
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
-                alertDialog.setTitle("IIts a shame");
+                alertDialog.setTitle("Its a shame");
                 alertDialog.setMessage("There are no winners its a draw");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
