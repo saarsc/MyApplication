@@ -3,21 +3,39 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\user\Documents\MyApplication\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="C:\Users\saarsc\AndroidStudioProjects\MyApplication\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="C:\Users\user\Documents\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_af2e6f9da300ea73a1ae5fbb2ac64b9967e4531d\classes.dex" />
+        sha1="6875d9d0fa3b7dbb9891dfc3d983d1c44cbdf0c7">
+        <dex dex="C:\Users\saarsc\AndroidStudioProjects\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b6d4178edcecf09c07a97afe466d22cbf7b10e97\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\user\Documents\MyApplication\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\saarsc\AndroidStudioProjects\MyApplication\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="67b917e5efbb5520577829403366427e1cfc8bb0">
-        <dex dex="C:\Users\user\Documents\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_d4ec874b4dd1a1bfcefb62f3fb57ab88b22eae71\classes.dex" />
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\saarsc\AndroidStudioProjects\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f9f95caeef55eb215e6ff5a1db5f6a038bbb1527\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\saarsc\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\saarsc\AndroidStudioProjects\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_23b95ea6e581a3acfbd76ddd884d54baebfa01ed\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\saarsc\.android\build-cache\f489668a878a3183ac13db5aec59699117b3482e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\saarsc\AndroidStudioProjects\MyApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_df0361a5f31117943c0ec2df39bea4f2d1d75c42\classes.dex" />
     </item>
 
 </items>

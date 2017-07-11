@@ -60,6 +60,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             intent.putExtra("nameTwo",etPlayer2.getText().toString());
             startActivity(intent);
         }
+            if(game.equals("hangman")) {
+
+                Intent intent = new Intent(Register.this, Hangman.class);
+                intent.putExtra("nameOne",etPlayer1.getText().toString());
+                intent.putExtra("nameTwo",etPlayer2.getText().toString());
+                startActivity(intent);
+            }
     }
     }
     @Override

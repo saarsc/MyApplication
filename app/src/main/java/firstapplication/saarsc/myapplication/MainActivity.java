@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this,Register.class);
             intent.putExtra("game" , "xmixdrix");
             startActivity(intent);
+        }else if(btn.getId() == btnHangman.getId()){
+            Intent intent = new Intent(MainActivity.this,Register.class);
+            intent.putExtra("game" , "hangman");
+            startActivity(intent);
         }
     }
     @Override

@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".TicTacToeGame"></activity>
+        <activity android:name=".TicTacToeGame" />
+        <activity android:name=".Hangman"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
     Button reset;
     TicTacToeManger manager;
     Button[][] board= new Button[3][3];
+    player[] players = new player[2];
     public Random rnd  = new Random();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,12 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe_game);
         //Gettin every thing form the last activity
-        String player1Name = getIntent().getStringExtra("nameOne");
-        String player2Name = getIntent().getStringExtra("nameTwo");
+        //String player1Name = getIntent().getStringExtra("nameOne");
+        //String player2Name = getIntent().getStringExtra("nameTwo");
+        //Player Handle
+        players[0] = new player('X',getIntent().getStringExtra("nameOne"));
+        players[1]= new player('O',getIntent().getStringExtra("nameTwo"));
+
         //Sync that shit up
         for(int i=0; i< board.length; i++){
             for(int j=0; j< board[i].length; j++){
@@ -39,13 +44,14 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                 board[i][j].setText("~");
             }
         }
+
         reset = (Button)findViewById(R.id.restet);
         manager  = new TicTacToeManger(this);
         manager.restart();
         tvPlayer1Name= (TextView)findViewById(R.id.tvPlayer1Name);
         tvPlayer2Name = (TextView) findViewById(R.id.tvPlayer2Name);
-        tvPlayer1Name.setText(player1Name + "( X )");
-        tvPlayer2Name.setText(player2Name + "( O )");
+        tvPlayer1Name.setText(players[0].getName() + "( X )");
+        tvPlayer2Name.setText(players[1].getName() + "( O )");
         reset.setOnClickListener(this);
         turn = rnd.nextInt(2)+1;
         manager.setTurn(turn);
@@ -63,11 +69,11 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
         }
     }
     public void onClick(View view){
-        //X turn
         if(view.getId() == reset.getId()){
             restart();
             manager.restart();
         }
+        //X turn
        else if(turn == 2) {
             tvPlayer1Name.setTextColor(Color.BLACK);
             tvPlayer2Name.setTextColor(Color.RED);
@@ -104,6 +110,7 @@ public class TicTacToeGame extends AppCompatActivity implements View.OnClickList
                 });
                 alertDialog.show();
             }
+            //Tie
             if(manager.full()){
                 AlertDialog alertDialog = new AlertDialog.Builder(TicTacToeGame.this).create();
                 alertDialog.setTitle("Its a shame");
